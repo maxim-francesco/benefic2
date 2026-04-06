@@ -31,10 +31,43 @@ function ParallaxCard({ car, index, scrollYProgress }: { car: CarProps; index: n
 }
 
 export default function FeaturedCars() {
+  const [cars, setCars] = useState<CarProps[]>(MOCK_DATA);
   const [isMobile, setIsMobile] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
   const [trackWidth, setTrackWidth] = useState(0);
   const [viewportWidth, setViewportWidth] = useState(0);
+
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const res = await fetch('https://saas-platform-backend.onrender.com/api/public/listings/search?businessId=cmnmfqggh02hkxi2784vniylc&categoryId=cmnmfqhga02hoxi279etfboqy');
+        if (!res.ok) throw new Error("API error");
+        const json = await res.json();
+        if (json.data && json.data.length > 0) {
+          const formatted = json.data.slice(0, 8).map((car: any) => {
+            const getAttr = (name: string) => car.attributeValues?.find((a: any) => a.attribute.name === name);
+            const brandAttr = getAttr('Marca')?.stringValue || '';
+            const modelName = car.title.startsWith(brandAttr) ? car.title.slice(brandAttr.length).trim() : car.title;
+            return {
+              id: car.id,
+              brand: brandAttr,
+              model: modelName,
+              year: getAttr('An')?.numberValue || 2024,
+              km: getAttr('Kilometraj')?.numberValue || 0,
+              fuel: getAttr('Combustibil')?.stringValue || '-',
+              price: car.price || getAttr('Pret')?.numberValue || 0,
+              image: car.images?.[0]?.url,
+              badge: "OFERTĂ"
+            };
+          });
+          setCars(formatted);
+        }
+      } catch (e) {
+        console.error("Failed to fetch featured cars", e);
+      }
+    };
+    fetchCars();
+  }, []);
 
   useEffect(() => {
     const updateMeasurements = () => {
@@ -49,11 +82,14 @@ export default function FeaturedCars() {
     };
     
     updateMeasurements();
-    setTimeout(updateMeasurements, 500); 
+    const timeout = setTimeout(updateMeasurements, 500); 
     
     window.addEventListener('resize', updateMeasurements);
-    return () => window.removeEventListener('resize', updateMeasurements);
-  }, []);
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener('resize', updateMeasurements);
+    };
+  }, [cars]);
 
   const headerRef = useRef(null);
   const isInView = useInView(headerRef, { once: true, margin: '-50px' });
@@ -73,9 +109,8 @@ export default function FeaturedCars() {
   });
 
   // Mobile primeste scroll headroom variabil pentru o experienta fluida (viteza mai mare in scroll pe telefon)
-  const wrapperHeight = isMobile 
-    ? `calc(${MOCK_DATA.length * 50}vh + 100vh)` 
-    : `calc(${MOCK_DATA.length * 40}vh + 100vh)`;
+  const displayCars = isMobile ? cars.slice(0, 3) : cars;
+  const wrapperHeight = `calc(${displayCars.length * 40}vh + 100vh)`;
 
   return (
     <section 
@@ -123,7 +158,7 @@ export default function FeaturedCars() {
           className="flex flex-row gap-4 md:gap-8 flex-nowrap px-[1.2rem] md:px-12 pb-12 w-max items-start pt-[60px] -mt-[60px]"
           style={{ x }}
         >
-          {MOCK_DATA.map((car, index) => (
+          {displayCars.map((car, index) => (
             <ParallaxCard key={car.id} car={car} index={index} scrollYProgress={scrollYProgress} />
           ))}
         </motion.div>
