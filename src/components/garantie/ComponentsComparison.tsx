@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Check, Minus } from 'lucide-react';
+import { Check, Minus, ArrowRight } from 'lucide-react';
 
 const COMPONENTS = [
   { name: 'Motor', cov: [true, true, true, true] },
@@ -110,8 +110,26 @@ export default function ComponentsComparison() {
 
         {/* COMPARISON TABLE */}
         <div className="w-full relative" ref={containerRef}>
-          <div className="overflow-x-auto md:overflow-x-visible snap-x custom-scrollbar pb-6 md:pb-0 rounded-xl">
-            <div className="min-w-[760px] md:min-w-0">
+          
+          {/* Mobile Swipe Hint */}
+          <div className="flex justify-end mb-3 md:hidden">
+            <motion.div 
+              initial={{ opacity: 0, x: -10 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+              transition={{ delay: 0.8, duration: 0.5 }}
+              className="inline-flex items-center gap-1.5 text-navy-300 text-[0.65rem] font-medium tracking-wide uppercase bg-navy-700/50 px-3 py-1.5 rounded-full backdrop-blur-sm"
+            >
+              <span>Glisează tabelul</span>
+              <ArrowRight size={12} className="animate-pulse" />
+            </motion.div>
+          </div>
+
+          <div className="relative rounded-xl">
+            {/* Fade right overlay to visually indicate overflow */}
+            <div className="absolute right-0 top-0 bottom-6 w-8 md:w-0 bg-gradient-to-l from-navy-800 to-transparent pointer-events-none z-30" />
+            
+            <div className="overflow-x-auto md:overflow-x-visible snap-x custom-scrollbar pb-6 md:pb-0 rounded-xl">
+              <div className="min-w-[760px] md:min-w-0">
               
               {/* HEADER ROW */}
               <motion.div 
@@ -139,6 +157,7 @@ export default function ComponentsComparison() {
               </div>
 
             </div>
+          </div>
           </div>
         </div>
       </div>
