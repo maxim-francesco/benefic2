@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, X, Phone, Mail, Calendar, Fuel, Gauge, Settings, CheckCircle, AlertCircle, Info, CarFront } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, Phone, Mail, Calendar, Fuel, Gauge, Settings, CheckCircle, AlertCircle, Info } from 'lucide-react';
 
 interface APICarDetail {
   id: string;
@@ -246,7 +246,7 @@ export default function CarDetailPage() {
               {km !== undefined && (
                 <div className="flex items-center gap-2 bg-navy-50 border border-navy-100 px-4 py-2.5 rounded-xl text-navy-700 font-body text-sm font-medium">
                   <Gauge size={16} className="text-navy-400" />
-                  {km.toLocaleString('de-DE')} km
+                  {km?.toLocaleString('de-DE')} km
                 </div>
               )}
               {fuel && (

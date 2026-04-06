@@ -32,7 +32,7 @@ export default function Navbar() {
         className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between transition-all duration-500 md:px-12 px-[1.2rem] h-[56px] md:h-[64px] ${scrolled && !isOpen ? 'bg-white/90 backdrop-blur-[20px] shadow-[0_1px_0_rgba(26,31,61,0.06)]' : 'bg-transparent'}`}
       >
         <Link to="/" onClick={() => setIsOpen(false)} className={`z-[101] flex items-center`}>
-          <img src="/logo.png" alt="Benefic Cars" className="h-8 md:h-10 object-contain" />
+          <span className={`font-display font-bold tracking-tight text-lg ${isOpen ? 'text-white' : (scrolled ? 'text-navy-800' : (isDarkHero ? 'text-white' : 'text-navy-800'))}`}>Benefic Cars</span>
         </Link>
 
         {/* Desktop Links */}

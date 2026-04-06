@@ -12,8 +12,7 @@ export default function Footer() {
           {/* Column 1 - Brand */}
           <div className="flex flex-col gap-5">
             <Link to="/" className="flex flex-col items-start gap-3">
-              <img src="/logo.png" alt="Benefic Cars" className="h-12 object-contain" />
-              <span className="font-display font-semibold text-white text-[1rem] tracking-[0.12em] uppercase">Benefic Cars</span>
+              <span className="font-display font-bold tracking-tight text-xl text-white">Benefic Cars</span>
             </Link>
             <p className="font-body text-[0.85rem] text-navy-400 leading-relaxed max-w-[280px]">
               Târg auto de mașini rulate verificate. Finanțare, garanție și livrare în toată România.
