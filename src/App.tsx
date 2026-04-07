@@ -4,6 +4,7 @@ import { useLenis } from './hooks/useLenis';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ScrollToTop from './components/layout/ScrollToTop';
+import WhatsAppButton from './components/layout/WhatsAppButton';
 
 const HomePage = React.lazy(() => import('./pages/HomePage'));
 const CarsPage = React.lazy(() => import('./pages/CarsPage'));
@@ -47,6 +48,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
+      <WhatsAppButton />
       <Footer />
     </BrowserRouter>
   );
