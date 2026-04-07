@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 interface Props {
   isIntroStarted: boolean;
@@ -62,9 +63,9 @@ export default function HeroContent({ isIntroStarted, scrollProgress }: Props) {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as [number, number, number, number], delay: 1.4 }}
           className="flex flex-col md:flex-row gap-[0.7rem] mt-[1.6rem] w-full max-w-[300px] md:max-w-none pointer-events-auto items-center justify-center"
         >
-          <button className="font-display font-semibold text-[0.82rem] md:text-[0.85rem] bg-navy-800 text-white px-6 py-[0.85rem] md:px-8 md:py-3 w-full md:w-auto rounded-full tracking-[0.03em] shadow-[0_4px_20px_rgba(26,31,61,0.2)] hover:shadow-[0_6px_30px_rgba(26,31,61,0.3)] hover:scale-[1.04] hover:bg-navy-700 transition-all duration-300">
+          <Link to="/masini" className="text-center font-display font-semibold text-[0.82rem] md:text-[0.85rem] bg-navy-800 text-white px-6 py-[0.85rem] md:px-8 md:py-3 w-full md:w-auto rounded-full tracking-[0.03em] shadow-[0_4px_20px_rgba(26,31,61,0.2)] hover:shadow-[0_6px_30px_rgba(26,31,61,0.3)] hover:scale-[1.04] hover:bg-navy-700 transition-all duration-300">
             Explorează Ofertele
-          </button>
+          </Link>
         </motion.div>
       )}
     </div>
