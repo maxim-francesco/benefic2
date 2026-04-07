@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { BadgeEuro, Clock, Scale } from 'lucide-react';
+import { BadgeEuro } from 'lucide-react';
+import { Clock } from 'lucide-react';
+import { Scale } from 'lucide-react';
 import BuyBackSteps from '../components/buy-back/BuyBackSteps';
 import BuyBackAdvantages from '../components/buy-back/BuyBackAdvantages';
 import UpgradeCard from '../components/buy-back/UpgradeCard';
@@ -30,7 +33,12 @@ export default function BuyBackPage() {
   };
 
   return (
-    <main className="w-full relative bg-white">
+    <>
+      <Helmet>
+        <title>Buy Back Auto — Vinde-ți Mașina Rapid | Benefic Car</title>
+        <meta name="description" content="Vinde-ți mașina rapid la Benefic Car. Evaluare gratuită, ofertă în 24h, tranzacție în 48h. Acceptăm și mașini cu defecte." />
+      </Helmet>
+      <main id="main-content" className="w-full relative bg-white">
       
       {/* HERO SECTION (DARK) */}
       <section className="relative w-full bg-navy-900 h-auto min-h-[500px] md:min-h-[60vh] flex flex-col pt-[80px] md:pt-[100px] overflow-hidden z-20">
@@ -70,7 +78,7 @@ export default function BuyBackPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
-            className="font-body text-navy-300 text-[1.05rem] md:text-lg max-w-xl mx-auto leading-relaxed mt-1"
+            className="font-body text-navy-200 text-[1.05rem] md:text-lg max-w-xl mx-auto leading-relaxed mt-1"
           >
             Evaluare gratuită, ofertă transparentă și posibilitatea de a folosi valoarea mașinii tale ca avans pentru un vehicul din stocul nostru.
           </motion.p>
@@ -215,5 +223,6 @@ export default function BuyBackPage() {
       </section>
 
     </main>
+    </>
   );
 }

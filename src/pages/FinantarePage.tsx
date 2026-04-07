@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Building2 } from 'lucide-react';
@@ -45,7 +46,12 @@ export default function FinantarePage() {
   };
 
   return (
-    <main className="w-full relative bg-white">
+    <>
+      <Helmet>
+        <title>Finanțare Auto — Rate TBI Bank & Mogo | Benefic Car</title>
+        <meta name="description" content="Finanțare auto prin TBI Bank și Mogo la Benefic Car. Rate avantajoase, aprobare rapidă, istoric negativ acceptat la Mogo." />
+      </Helmet>
+      <main id="main-content" className="w-full relative bg-white">
       
       {/* HERO SECTION */}
       <section ref={heroRef} className="relative w-full bg-navy-900 h-auto min-h-[500px] md:h-[60vh] pt-[100px] md:pt-[120px] pb-20 flex items-center justify-center px-5 md:px-8 overflow-hidden z-20">
@@ -85,7 +91,7 @@ export default function FinantarePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-            className="font-body text-navy-300 text-lg max-w-xl mx-auto leading-relaxed"
+            className="font-body text-navy-200 text-lg max-w-xl mx-auto leading-relaxed"
           >
             Două opțiuni de finanțare adaptate nevoilor tale. Răspuns în mai puțin de 2 ore.
           </motion.p>
@@ -165,5 +171,6 @@ export default function FinantarePage() {
       <RateCalculator />
 
     </main>
+    </>
   );
 }

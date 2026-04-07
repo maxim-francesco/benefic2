@@ -1,6 +1,11 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { CircleDollarSign, FileSearch, ShieldCheck, Truck, Banknote, Clock } from 'lucide-react';
+import { CircleDollarSign } from 'lucide-react';
+import { FileSearch } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
+import { Truck } from 'lucide-react';
+import { Banknote } from 'lucide-react';
+import { Clock } from 'lucide-react';
 
 const ADVANTAGES = [
   { icon: CircleDollarSign, title: 'Prețuri Sub Piața Românească', desc: 'Mașinile din vestul Europei sunt adesea cu 15-30% mai ieftine decât echivalentele de pe piața locală, la aceeași stare și kilometraj.' },

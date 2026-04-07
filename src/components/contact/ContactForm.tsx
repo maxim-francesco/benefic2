@@ -1,6 +1,9 @@
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { CheckCircle, ChevronDown, AlertCircle, Loader2 } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -47,7 +50,9 @@ export default function ContactForm() {
       setSubmitted(true);
       setFormData({ name: '', phone: '', email: '', subject: '', message: '' }); // reset
     } catch (err) {
-      console.error('Contact Form Error:', err);
+      if (import.meta.env.DEV) {
+        console.error('Contact Form Error:', err);
+      }
       setError('A apărut o eroare. Te rugăm să încerci din nou sau să ne suni direct.');
     } finally {
       setIsSubmitting(false);
@@ -72,7 +77,7 @@ export default function ContactForm() {
       <h2 className="font-display font-bold text-white text-2xl mt-2">
         Trimite-ne un Mesaj
       </h2>
-      <p className="font-body text-navy-300 text-sm mt-3">
+      <p className="font-body text-navy-200 text-sm mt-3">
         Completează formularul și revenim cu un răspuns rapid.
       </p>
 
@@ -103,13 +108,13 @@ export default function ContactForm() {
           {/* Nume & Telefon */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <input 
-              required type="text" name="name" placeholder="Numele tău"
+              required type="text" id="name" name="name" placeholder="Numele tău" aria-label="Numele tău"
               value={formData.name} onChange={handleChange}
               disabled={isSubmitting}
               className="w-full bg-navy-700/50 border border-navy-600/30 rounded-xl px-4 py-3.5 font-body text-sm text-white placeholder-navy-400 focus:border-mauve-500 focus:ring-2 focus:ring-mauve-500/20 outline-none transition-all disabled:opacity-50"
             />
             <input 
-              required type="tel" name="phone" placeholder="Număr de telefon"
+              required type="tel" id="phone" name="phone" placeholder="Număr de telefon" aria-label="Număr de telefon"
               value={formData.phone} onChange={handleChange}
               disabled={isSubmitting}
               className="w-full bg-navy-700/50 border border-navy-600/30 rounded-xl px-4 py-3.5 font-body text-sm text-white placeholder-navy-400 focus:border-mauve-500 focus:ring-2 focus:ring-mauve-500/20 outline-none transition-all disabled:opacity-50"
@@ -118,7 +123,7 @@ export default function ContactForm() {
 
           {/* Email */}
           <input 
-            required type="email" name="email" placeholder="Adresa de email"
+            required type="email" id="email" name="email" placeholder="Adresa de email" aria-label="Adresa de email"
             value={formData.email} onChange={handleChange}
             disabled={isSubmitting}
             className="w-full bg-navy-700/50 border border-navy-600/30 rounded-xl px-4 py-3.5 font-body text-sm text-white placeholder-navy-400 focus:border-mauve-500 focus:ring-2 focus:ring-mauve-500/20 outline-none transition-all disabled:opacity-50"
@@ -127,7 +132,7 @@ export default function ContactForm() {
           {/* Subiect */}
           <div className="relative">
             <select 
-              required name="subject"
+              required id="subject" name="subject" aria-label="Subiectul mesajului"
               value={formData.subject} onChange={handleChange}
               disabled={isSubmitting}
               className={`w-full bg-navy-700/50 border border-navy-600/30 rounded-xl px-4 py-3.5 font-body text-sm placeholder-navy-400 focus:border-mauve-500 focus:ring-2 focus:ring-mauve-500/20 outline-none transition-all appearance-none cursor-pointer disabled:opacity-50 ${!formData.subject ? 'text-navy-400' : 'text-white'}`}
@@ -148,7 +153,7 @@ export default function ContactForm() {
 
           {/* Mesaj */}
           <textarea 
-            required name="message" rows={5} placeholder="Scrie-ne mesajul tău..."
+            required id="message" name="message" rows={5} placeholder="Scrie-ne mesajul tău..." aria-label="Conținutul mesajului"
             value={formData.message} onChange={handleChange}
             disabled={isSubmitting}
             className="w-full bg-navy-700/50 border border-navy-600/30 rounded-xl px-4 py-3.5 font-body text-sm text-white placeholder-navy-400 focus:border-mauve-500 focus:ring-2 focus:ring-mauve-500/20 outline-none transition-all resize-none disabled:opacity-50"

@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, useScroll, animate } from 'framer-motion';
-import { User, Building2 } from 'lucide-react';
+import { User } from 'lucide-react';
+import { Building2 } from 'lucide-react';
 
 const FIZICE = [
   "Vârsta: 18-75 ani (la terminarea creditului)",

@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { ShieldCheck, Zap, HandCoins } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
+import { Zap } from 'lucide-react';
+import { HandCoins } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const FEATURES = [

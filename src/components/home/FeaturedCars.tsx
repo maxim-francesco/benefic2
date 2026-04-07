@@ -63,7 +63,9 @@ export default function FeaturedCars() {
           setCars(formatted);
         }
       } catch (e) {
-        console.error("Failed to fetch featured cars", e);
+        if (import.meta.env.DEV) {
+          console.error("Failed to fetch featured cars", e);
+        }
       }
     };
     fetchCars();
@@ -123,7 +125,7 @@ export default function FeaturedCars() {
         <div className="mb-8 relative z-20">
           <div ref={headerRef} className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6 max-w-[1280px] mx-auto px-[1.2rem] md:px-12 w-full">
             <div>
-              <div className="text-[0.7rem] font-semibold tracking-[0.3em] text-mauve-600 uppercase mb-[0.6rem]">
+              <div className="text-[0.7rem] font-semibold tracking-[0.3em] text-mauve-700 uppercase mb-[0.6rem]">
                 STOC
               </div>
               <h2 className="font-display font-semibold text-navy-800 text-3xl md:text-[2.5rem] tracking-tight relative inline-block">

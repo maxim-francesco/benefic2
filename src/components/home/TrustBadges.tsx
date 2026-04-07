@@ -15,7 +15,7 @@ const PartnerItem = ({ text }: { text: string }) => (
       className="text-navy-500 transition-colors duration-300" 
       strokeWidth={1.5}
     />
-    <span className="font-body font-medium text-navy-400 text-sm transition-colors duration-300 tracking-wide">
+    <span className="font-body font-medium text-navy-300 text-sm transition-colors duration-300 tracking-wide">
       {text}
     </span>
   </div>

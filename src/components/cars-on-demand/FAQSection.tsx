@@ -64,11 +64,12 @@ export default function FAQSection() {
               className="bg-navy-50 rounded-xl overflow-hidden border border-navy-100 relative"
             >
               {/* HEADER (Clickable) */}
-              <div 
+              <button 
+                type="button"
                 onClick={() => setOpenIndex(isOpen ? null : idx)}
-                className="flex justify-between items-center p-5 cursor-pointer hover:bg-navy-100/50 transition-colors duration-300 select-none"
+                className="w-full flex justify-between items-center p-5 cursor-pointer hover:bg-navy-100/50 transition-colors duration-300 select-none text-left"
               >
-                <h3 className="font-display font-medium text-navy-800 text-left pr-4">
+                <h3 className="font-display font-medium text-navy-800 pr-4">
                   {faq.q}
                 </h3>
                 <motion.div
@@ -78,7 +79,7 @@ export default function FAQSection() {
                 >
                   <ChevronDown size={20} />
                 </motion.div>
-              </div>
+              </button>
 
               {/* BODY (Animated) */}
               <AnimatePresence initial={false}>

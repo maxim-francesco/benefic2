@@ -27,7 +27,14 @@ export function CarCard({ car, index }: { car: CarProps; index: number }) {
         {/* Image container cu aspect 4:3 */}
         <div className="relative aspect-[4/3] bg-navy-50 overflow-hidden">
           {car.image ? (
-            <img src={car.image} alt={`${car.brand} ${car.model}`} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" />
+            <img 
+              src={car.image} 
+              alt={`${car.brand} ${car.model}`} 
+              className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" 
+              loading="lazy"
+              width={400}
+              height={300}
+            />
           ) : (
             <div className="w-full h-full bg-navy-100/40 flex items-center justify-center group-hover:scale-105 group-hover:brightness-[1.02] transition-all duration-500">
               <Car size={48} className="text-navy-300 drop-shadow-sm" />

@@ -1,6 +1,9 @@
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Lock, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { Lock } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 
 export default function OrderForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -56,7 +59,9 @@ ${formData.details || 'Nu au fost oferite detalii suplimentare.'}`;
       setSubmitted(true);
       setFormData({ name: '', phone: '', email: '', brand: '', budget: '', details: '' }); // reset
     } catch (err) {
-      console.error('Order Form Error:', err);
+      if (import.meta.env.DEV) {
+        console.error('Order Form Error:', err);
+      }
       setError('A apărut o eroare. Te rugăm să încerci din nou sau să ne suni direct.');
     } finally {
       setIsSubmitting(false);

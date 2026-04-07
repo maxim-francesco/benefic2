@@ -1,8 +1,14 @@
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 
 export default function TermeniPage() {
   return (
-    <main className="w-full bg-white pt-[100px] md:pt-[120px] pb-20 px-5 md:px-8">
+    <>
+      <Helmet>
+        <title>Termeni și Condiții | Benefic Car</title>
+        <meta name="description" content="Termeni și condiții de utilizare și vânzare pentru platforma Benefic Car." />
+      </Helmet>
+      <main id="main-content" className="w-full bg-white pt-[100px] md:pt-[120px] pb-20 px-5 md:px-8">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -60,5 +66,6 @@ export default function TermeniPage() {
         </div>
       </motion.div>
     </main>
+    </>
   );
 }

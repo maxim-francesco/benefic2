@@ -1,9 +1,12 @@
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import ContactCards from '../components/contact/ContactCards';
 import ContactForm from '../components/contact/ContactForm';
 import ContactMap from '../components/contact/ContactMap';
 import ContactFAQ from '../components/contact/ContactFAQ';
-import { Phone, Mail, Car } from 'lucide-react';
+import { Phone } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import { Car } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function ContactPage() {
@@ -29,7 +32,12 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="w-full relative bg-white">
+    <>
+      <Helmet>
+        <title>Contact — Benefic Car Ilfov</title>
+        <meta name="description" content="Contactează-ne telefonic, prin email sau vizitează-ne în Ilfov. Program: Luni-Sâmbătă 09:00-18:00." />
+      </Helmet>
+      <main id="main-content" className="w-full relative bg-white">
       
       {/* HERO SECTION (DARK) */}
       <section className="relative w-full bg-navy-900 h-auto min-h-[350px] md:min-h-[50vh] flex flex-col pt-[80px] md:pt-[100px] overflow-hidden z-20">
@@ -69,7 +77,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] as const }}
-            className="font-body text-navy-300 text-[1.05rem] md:text-lg max-w-xl mx-auto leading-relaxed mt-1"
+            className="font-body text-navy-200 text-[1.05rem] md:text-lg max-w-xl mx-auto leading-relaxed mt-1"
           >
             Fie că vrei să vezi o mașină, să ceri o ofertă sau ai o întrebare — suntem aici pentru tine.
           </motion.p>
@@ -159,5 +167,6 @@ export default function ContactPage() {
       </section>
 
     </main>
+    </>
   );
 }

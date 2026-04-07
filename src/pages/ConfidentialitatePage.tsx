@@ -1,8 +1,14 @@
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 
 export default function ConfidentialitatePage() {
   return (
-    <main className="w-full bg-white pt-[100px] md:pt-[120px] pb-20 px-5 md:px-8">
+    <>
+      <Helmet>
+        <title>Politica de Confidențialitate | Benefic Car</title>
+        <meta name="description" content="Află cum colectăm și procesăm datele tale personale la Benefic Car conform standardelor GDPR." />
+      </Helmet>
+      <main id="main-content" className="w-full bg-white pt-[100px] md:pt-[120px] pb-20 px-5 md:px-8">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -59,5 +65,6 @@ export default function ConfidentialitatePage() {
         </div>
       </motion.div>
     </main>
+    </>
   );
 }

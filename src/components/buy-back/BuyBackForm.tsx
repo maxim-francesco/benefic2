@@ -1,6 +1,10 @@
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Lock, CheckCircle, Check, AlertCircle, Loader2 } from 'lucide-react';
+import { Lock } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
+import { Check } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 
 export default function BuyBackForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -65,7 +69,9 @@ ${formData.details || 'Nu au fost oferite detalii suplimentare.'}`;
       setFormData({ name: '', phone: '', email: '', brand: '', model: '', year: '', km: '', fuel: '', details: '' }); // reset
       setWantsUpgrade(false);
     } catch (err) {
-      console.error('BuyBack Form Error:', err);
+      if (import.meta.env.DEV) {
+        console.error('BuyBack Form Error:', err);
+      }
       setError('A apărut o eroare. Te rugăm să încerci din nou sau să ne suni direct.');
     } finally {
       setIsSubmitting(false);

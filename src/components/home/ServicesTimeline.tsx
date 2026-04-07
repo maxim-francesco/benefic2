@@ -1,6 +1,11 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Shield, Banknote, RotateCcw, Search, Truck, FileCheck } from 'lucide-react';
+import { Shield } from 'lucide-react';
+import { Banknote } from 'lucide-react';
+import { RotateCcw } from 'lucide-react';
+import { Search } from 'lucide-react';
+import { Truck } from 'lucide-react';
+import { FileCheck } from 'lucide-react';
 import { TimelineItem } from '../shared/TimelineItem';
 
 const SERVICES = [

@@ -1,6 +1,12 @@
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { MapPin, Clock, Phone, Mail, ExternalLink, Copy, Check } from 'lucide-react';
+import { MapPin } from 'lucide-react';
+import { Clock } from 'lucide-react';
+import { Phone } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
+import { Copy } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 export default function ContactMap() {
   const ref = useRef<HTMLDivElement>(null);

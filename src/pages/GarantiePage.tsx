@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PackagesSection from '../components/garantie/PackagesSection';
@@ -29,7 +30,12 @@ export default function GarantiePage() {
 
 
   return (
-    <main className="w-full relative bg-white">
+    <>
+      <Helmet>
+        <title>Garanție Auto Defend Insurance — Benefic Car Ilfov</title>
+        <meta name="description" content="Garanție mecanică Defend Insurance inclusă în preț. Pachete DELUXE, ADVANTAGE, COMFORT și PLUS. Acoperire până la 15 ani." />
+      </Helmet>
+      <main id="main-content" className="w-full relative bg-white">
       
       {/* HERO SECTION (DARK) */}
       <section className="relative w-full bg-navy-900 h-auto min-h-[500px] md:h-[60vh] pt-[100px] md:pt-[120px] pb-20 flex items-center justify-center px-5 md:px-8 overflow-hidden z-20">
@@ -68,7 +74,7 @@ export default function GarantiePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
-            className="font-body text-navy-300 text-lg max-w-xl mx-auto leading-relaxed mt-4"
+            className="font-body text-navy-200 text-lg max-w-xl mx-auto leading-relaxed mt-4"
           >
             Fiecare mașină Benefic Cars vine cu garanție inclusă. Extinde protecția până la 3 ani prin Defend Insurance.
           </motion.p>
@@ -199,5 +205,6 @@ export default function GarantiePage() {
       </section>
 
     </main>
+    </>
   );
 }

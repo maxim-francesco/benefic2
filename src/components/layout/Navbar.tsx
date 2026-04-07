@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ChevronDown, Phone } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import MobileMenu from './MobileMenu';
 
 export default function Navbar() {
@@ -26,6 +27,7 @@ export default function Navbar() {
   return (
     <>
       <motion.nav 
+        aria-label="Navigare principală"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
@@ -64,9 +66,11 @@ export default function Navbar() {
 
         {/* Mobile Hamburger Button */}
         <button 
-          className="md:hidden flex flex-col justify-center items-center w-8 h-8 z-[101] relative gap-[5px] outline-none"
+          className="md:hidden flex flex-col justify-center items-center w-8 h-8 z-[101] relative gap-[5px] outline-none focus:ring-2 focus:ring-mauve-500 rounded"
           onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle Menu"
+          aria-label={isOpen ? "Închide meniul" : "Deschide meniul"}
+          aria-expanded={isOpen}
+          aria-controls="mobile-menu"
         >
           <motion.span animate={isOpen ? { rotate: 45, y: 6.5 } : { rotate: 0, y: 0 }} className={`w-6 h-[1.5px] block rounded-full transition-colors duration-300 ${spanBg}`} />
           <motion.span animate={isOpen ? { opacity: 0 } : { opacity: 1 }} className={`w-6 h-[1.5px] block rounded-full transition-colors duration-300 ${spanBg}`} />

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.beneficcar.ro/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://www.beneficcar.ro/masini</loc><priority>0.9</priority><changefreq>daily</changefreq></url>
+  <url><loc>https://www.beneficcar.ro/finantare</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.beneficcar.ro/garantie</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.beneficcar.ro/masini-la-comanda</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.beneficcar.ro/buyback</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.beneficcar.ro/contact</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+</urlset>

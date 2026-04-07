@@ -1,7 +1,18 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Settings, Calendar, Fuel, Gauge, CarFront, ChevronLeft, ChevronRight, AlertCircle, Search, SlidersHorizontal, X } from 'lucide-react';
+import { Settings } from 'lucide-react';
+import { Calendar } from 'lucide-react';
+import { Fuel } from 'lucide-react';
+import { Gauge } from 'lucide-react';
+import { CarFront } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
+import { Search } from 'lucide-react';
+import { SlidersHorizontal } from 'lucide-react';
+import { X } from 'lucide-react';
 
 interface APIListing {
   id: string;
@@ -74,7 +85,9 @@ export default function CarsPage() {
           km: { min: kmRes.min || 0, max: kmRes.max || 0 }
         });
       } catch (e) {
-        console.error('Filter meta error', e);
+        if (import.meta.env.DEV) {
+          console.error('Filter meta error', e);
+        }
       }
     };
     fetchMeta();
@@ -113,7 +126,9 @@ export default function CarsPage() {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       } catch (err) {
-        console.error('Listings Fetch Error:', err);
+        if (import.meta.env.DEV) {
+          console.error('Listings Fetch Error:', err);
+        }
         setError(true);
       } finally {
         setLoading(false);
@@ -315,8 +330,13 @@ export default function CarsPage() {
   );
 
   return (
-    <main className="w-full bg-white pt-[100px] md:pt-[120px] pb-20 px-5 md:px-8 min-h-screen relative">
-      <div className="max-w-7xl mx-auto w-full">
+    <>
+      <Helmet>
+        <title>Stoc Mașini Rulate — Benefic Car Ilfov</title>
+        <meta name="description" content="Vezi toate mașinile rulate disponibile la Benefic Car. Filtrează după marcă, preț, an, combustibil. Prețuri de la importator." />
+      </Helmet>
+      <main id="main-content" className="w-full bg-white pt-[100px] md:pt-[120px] pb-20 px-5 md:px-8 min-h-screen relative">
+        <div className="max-w-7xl mx-auto w-full">
         
         {/* HEADER */}
         <div className="mb-10 text-center">
@@ -352,11 +372,13 @@ export default function CarsPage() {
         <AnimatePresence>
           {isMobileFiltersOpen && (
             <>
-              <motion.div 
+              <motion.button
+                type="button"
+                aria-label="Închide overlay filtre"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] lg:hidden"
+                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] lg:hidden w-full h-full border-none p-0 cursor-default"
                 onClick={() => setIsMobileFiltersOpen(false)}
               />
               <motion.div 
@@ -367,10 +389,10 @@ export default function CarsPage() {
                 className="fixed inset-y-0 left-0 w-[85%] max-w-sm bg-white shadow-2xl z-[100] lg:hidden p-6 overflow-y-auto flex flex-col"
               >
                 <div className="flex items-center justify-between mb-8 pb-4 border-b border-navy-100">
-                  <h3 className="font-display font-bold text-navy-900 text-xl flex items-center gap-2">
+                  <h2 className="font-display font-bold text-navy-900 text-xl flex items-center gap-2">
                     <SlidersHorizontal size={20} className="text-mauve-600" />
                     Filtrează
-                  </h3>
+                  </h2>
                   <button onClick={() => setIsMobileFiltersOpen(false)} className="w-10 h-10 bg-navy-50 rounded-full flex items-center justify-center text-navy-600">
                     <X size={20} />
                   </button>
@@ -417,7 +439,7 @@ export default function CarsPage() {
         {!loading && error && (
           <div className="flex flex-col items-center text-center bg-red-50/50 border border-red-100 rounded-2xl py-16 px-6 max-w-2xl mx-auto">
             <AlertCircle size={48} className="text-red-400 mb-4" />
-            <h3 className="font-display font-semibold text-red-900 text-xl">Nu am putut încărca ofertele</h3>
+            <h2 className="font-display font-semibold text-red-900 text-xl">Nu am putut încărca ofertele</h2>
             <p className="font-body text-red-800/80 mt-2">
               A apărut o problemă de conexiune cu serverul.
             </p>
@@ -434,7 +456,7 @@ export default function CarsPage() {
         {!loading && !error && cars.length === 0 && (
           <div className="flex flex-col items-center justify-center text-center bg-navy-50/50 rounded-2xl py-20 px-6 border border-navy-100 border-dashed max-w-3xl mx-auto">
             <CarFront size={64} className="text-navy-300 mb-5" strokeWidth={1.5} />
-            <h3 className="font-display font-semibold text-navy-800 text-2xl">Nu am găsit rezultate</h3>
+            <h2 className="font-display font-semibold text-navy-800 text-2xl">Nu am găsit rezultate</h2>
             <p className="font-body text-navy-500 mt-2 max-w-md">
               În acest moment nu există nicio mașină activă pe acești parametri de filtrare.
             </p>
@@ -472,6 +494,8 @@ export default function CarsPage() {
                       alt={car.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[0.16,1,0.3,1]"
                       loading="lazy"
+                      width={400}
+                      height={300}
                     />
                   </div>
                   
@@ -534,5 +558,6 @@ export default function CarsPage() {
 
       </div>
     </main>
+    </>
   );
 }

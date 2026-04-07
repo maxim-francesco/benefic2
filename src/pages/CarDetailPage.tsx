@@ -1,7 +1,19 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, X, Phone, Mail, Calendar, Fuel, Gauge, Settings, CheckCircle, AlertCircle, Info } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
+import { X } from 'lucide-react';
+import { Phone } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import { Calendar } from 'lucide-react';
+import { Fuel } from 'lucide-react';
+import { Gauge } from 'lucide-react';
+import { Settings } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
+import { Info } from 'lucide-react';
 
 interface APICarDetail {
   id: string;
@@ -45,7 +57,9 @@ export default function CarDetailPage() {
         
         setCar(json);
       } catch (err) {
-        console.error('Fetch car details error:', err);
+        if (import.meta.env.DEV) {
+          console.error('Fetch car details error:', err);
+        }
         setError(true);
       } finally {
         setLoading(false);
@@ -151,7 +165,7 @@ export default function CarDetailPage() {
       <main className="w-full bg-white pt-[140px] pb-20 min-h-screen flex items-center justify-center">
          <div className="flex flex-col items-center justify-center text-center bg-navy-50/50 rounded-2xl py-20 px-6 border border-navy-100 border-dashed max-w-xl mx-auto w-[90%]">
           <AlertCircle size={64} className="text-red-400 mb-5" strokeWidth={1.5} />
-          <h3 className="font-display font-semibold text-navy-800 text-2xl">Mașina nu a fost găsită</h3>
+          <h2 className="font-display font-semibold text-navy-800 text-2xl">Mașina nu a fost găsită</h2>
           <p className="font-body text-navy-500 mt-2">
             Ne pare rău, dar oferta pe care o cauți nu mai este disponibilă sau link-ul este greșit.
           </p>
@@ -171,7 +185,12 @@ export default function CarDetailPage() {
   const isMultipleImages = images.length > 1;
 
   return (
-    <main className="w-full bg-white pt-[100px] md:pt-[120px] min-h-screen">
+    <>
+      <Helmet>
+        <title>{car.title} — Benefic Car</title>
+        <meta name="description" content={`${getAttr('Marca')?.stringValue || ''} ${getAttr('Model')?.stringValue || ''}, ${getAttr('An')?.numberValue || ''}, ${getAttr('Kilometraj')?.numberValue || ''} km, ${getAttr('Combustibil')?.stringValue || ''} — disponibil la Benefic Car cu garanție și finanțare.`} />
+      </Helmet>
+      <main id="main-content" className="w-full bg-white pt-[100px] md:pt-[120px] min-h-screen">
       
       {/* 1. HERO SECTION */}
       <section className="max-w-7xl mx-auto px-5 md:px-8 py-8 md:py-12">
@@ -179,8 +198,10 @@ export default function CarDetailPage() {
           
           {/* Stânga: Galerie */}
           <div className="w-full lg:w-[60%]">
-            <div 
-              className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-navy-50 border border-navy-100/50 group cursor-zoom-in shadow-sm shadow-navy-900/5"
+            <button 
+              type="button"
+              aria-label="Mărește fotografia"
+              className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-navy-50 border border-navy-100/50 group cursor-zoom-in shadow-sm shadow-navy-900/5 text-left block p-0"
               onClick={() => setLightboxOpen(true)}
             >
               <AnimatePresence mode="wait">
@@ -200,20 +221,20 @@ export default function CarDetailPage() {
               {isMultipleImages && (
                 <>
                   <button 
-                    onClick={prevImg}
+                    onClick={(e) => { e.stopPropagation(); prevImg(e); }}
                     className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-navy-800 hover:bg-white hover:scale-105 transition-all opacity-0 group-hover:opacity-100 shadow-lg"
                   >
                     <ChevronLeft size={24} />
                   </button>
                   <button 
-                    onClick={nextImg}
+                    onClick={(e) => { e.stopPropagation(); nextImg(e); }}
                     className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-navy-800 hover:bg-white hover:scale-105 transition-all opacity-0 group-hover:opacity-100 shadow-lg"
                   >
                     <ChevronRight size={24} />
                   </button>
                 </>
               )}
-            </div>
+            </button>
             
             {/* Navigatie Mici */}
             {isMultipleImages && (
@@ -451,5 +472,6 @@ export default function CarDetailPage() {
       </AnimatePresence>
 
     </main>
+    </>
   );
 }

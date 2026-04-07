@@ -1,6 +1,8 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 export default function ContactCards() {
   const ref = useRef<HTMLDivElement>(null);
@@ -32,7 +34,7 @@ export default function ContactCards() {
         <h3 className="font-display font-medium text-navy-800 text-lg mt-5">
           Sună-ne
         </h3>
-        <a href="tel:+40700000000" className="font-display font-semibold text-navy-800 text-xl mt-2 outline-none focus:text-mauve-600 transition-colors">
+        <a href="tel:+40700000000" className="font-display font-semibold text-navy-800 text-xl mt-2 outline-none focus:text-mauve-600 focus:ring-2 focus:ring-mauve-500 rounded transition-colors">
           +40 700 000 000
         </a>
         <p className="font-body text-navy-500 text-sm mt-1">
@@ -48,7 +50,7 @@ export default function ContactCards() {
         <h3 className="font-display font-medium text-navy-800 text-lg mt-5">
           Scrie-ne
         </h3>
-        <a href="mailto:contact@beneficcars.ro" className="font-display font-semibold text-navy-800 text-xl mt-2 outline-none focus:text-mauve-600 transition-colors">
+        <a href="mailto:contact@beneficcars.ro" className="font-display font-semibold text-navy-800 text-xl mt-2 outline-none focus:text-mauve-600 focus:ring-2 focus:ring-mauve-500 rounded transition-colors">
           contact@beneficcars.ro
         </a>
         <p className="font-body text-navy-500 text-sm mt-1">

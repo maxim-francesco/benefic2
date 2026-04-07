@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import HowItWorks from '../components/cars-on-demand/HowItWorks';
 import AdvantagesSection from '../components/cars-on-demand/AdvantagesSection';
 import SourceCountries from '../components/cars-on-demand/SourceCountries';
@@ -28,7 +29,12 @@ export default function CarsOnDemandPage() {
   };
 
   return (
-    <main className="w-full relative bg-white">
+    <>
+      <Helmet>
+        <title>Mașini la Comandă din Germania & Europa — Benefic Car</title>
+        <meta name="description" content="Comandă mașina dorită din Germania, Belgia, Olanda, Austria sau Italia. Livrare în 7-14 zile, verificare completă, prețuri cu 15-30% mai mici." />
+      </Helmet>
+      <main id="main-content" className="w-full relative bg-white">
       
       {/* HERO SECTION (DARK) */}
       <section className="relative w-full bg-navy-900 h-auto min-h-[500px] md:h-[60vh] pt-[100px] md:pt-[120px] pb-20 flex items-center justify-center px-5 md:px-8 overflow-hidden z-20">
@@ -67,7 +73,7 @@ export default function CarsOnDemandPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
-            className="font-body text-navy-300 text-[1.05rem] md:text-lg max-w-xl mx-auto leading-relaxed mt-1"
+            className="font-body text-navy-200 text-[1.05rem] md:text-lg max-w-xl mx-auto leading-relaxed mt-1"
           >
             Spune-ne exact ce mașină visezi — marca, modelul, bugetul. Noi o găsim în stocul european și ți-o aducem cu garanție și acte în regulă.
           </motion.p>
@@ -168,5 +174,6 @@ export default function CarsOnDemandPage() {
       </section>
 
     </main>
+    </>
   );
 }

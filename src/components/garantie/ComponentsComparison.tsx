@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Check, Minus, ArrowRight } from 'lucide-react';
+import { Check } from 'lucide-react';
+import { Minus } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const COMPONENTS = [
   { name: 'Motor', cov: [true, true, true, true] },
