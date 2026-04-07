@@ -92,10 +92,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-6 border-t border-navy-700/50 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="font-body text-navy-300">
-            &copy; 2026 BENEFIC DARIUS AUTOS S.R.L. | CUI 49835667. Toate drepturile rezervate.
-          </p>
+        <div className="mt-12 pt-6 border-t border-navy-700/50 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+          <div className="flex flex-col gap-1.5">
+            <p className="font-body text-navy-300">
+              &copy; 2026 BENEFIC DARIUS AUTOS S.R.L. | CUI 49835667. Toate drepturile rezervate.
+            </p>
+            <p className="font-body text-navy-400 text-xs text-center md:text-left">
+              Implementat și dezvoltat de Maxim Francesco | <a href="tel:+40758990675" className="hover:text-mauve-300 transition-colors">+40758990675</a>
+            </p>
+          </div>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <Link to="/termeni-si-conditii" className="font-body text-navy-300 hover:text-navy-200 transition-colors">Termeni și Condiții</Link>
             <span className="text-navy-300 font-bold text-[0.85rem]">&middot;</span>
