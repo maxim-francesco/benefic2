@@ -58,7 +58,7 @@ export default function Navbar() {
 
         {/* Desktop CTA */}
         <div className="hidden md:block z-[101]">
-          <a href="tel:+40700000000" className={`font-display text-[0.75rem] font-semibold px-[1.4rem] py-[0.5rem] rounded-full tracking-[0.04em] transition-all duration-300 hover:scale-[1.03] inline-flex items-center gap-1.5 ${scrolled ? 'bg-navy-800 text-white hover:bg-navy-700' : (isDarkHero ? 'bg-white text-navy-900 hover:bg-white/90' : 'bg-navy-800 text-white hover:bg-navy-700')}`}>
+          <a href="tel:+40721703507" className={`font-display text-[0.75rem] font-semibold px-[1.4rem] py-[0.5rem] rounded-full tracking-[0.04em] transition-all duration-300 hover:scale-[1.03] inline-flex items-center gap-1.5 ${scrolled ? 'bg-navy-800 text-white hover:bg-navy-700' : (isDarkHero ? 'bg-white text-navy-900 hover:bg-white/90' : 'bg-navy-800 text-white hover:bg-navy-700')}`}>
             <Phone size={14} />
             Sună-ne
           </a>

@@ -27,7 +27,7 @@ export default function CookiesPage() {
             Un ”Cookie” („browser cookie” sau „HTTP cookie”) reprezintă un text minuscul formatat corect alfanumeric. Este instalat grație browser-ului pe echipamentul dumneavoastră la solicitarea acestui site. El este "pasiv", neavând calități executabile pe telefonul sau computerul vizitatorului, neavând deci capacitatea de operare virusată.
           </p>
 
-          <h2 className="font-display font-semibold text-navy-700 text-xl mt-8 mb-3">Tipuri de cookie-uri folosite de Benefic Cars</h2>
+          <h2 className="font-display font-semibold text-navy-700 text-xl mt-8 mb-3">Tipuri de cookie-uri folosite de Benefic Car</h2>
           <p>
             Platforma se poziționează în jurul unei vizite cât mai prietenoase structural și vizual.
             <ul className="list-disc pl-5 mt-2 space-y-2">
@@ -40,7 +40,7 @@ export default function CookiesPage() {
 
           <h2 className="font-display font-semibold text-navy-700 text-xl mt-8 mb-3">Control și Limitări Actuale</h2>
           <p>
-            Setările implicite sunt gândite pentru protecție directă. În mod normal, majoritatea acestor acțiuni pot fi dezactivate direct prin bara globală de avertisment de Cookie și Confidențialitate localizată la accesul direct al domeniului <strong>beneficcars.ro</strong>.
+            Setările implicite sunt gândite pentru protecție directă. În mod normal, majoritatea acestor acțiuni pot fi dezactivate direct prin bara globală de avertisment de Cookie și Confidențialitate localizată la accesul direct al domeniului <strong>beneficcar.ro</strong>.
           </p>
 
           <h2 className="font-display font-semibold text-navy-700 text-xl mt-8 mb-3">Dezactivare generală</h2>

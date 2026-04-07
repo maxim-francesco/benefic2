@@ -148,7 +148,7 @@ export default function MogoSection() {
             transition={{ delay: 0.3 }}
             className="text-navy-400 text-sm font-body mt-3"
           >
-            sau sună la <a href="tel:+40700000000" className="hover:text-mauve-400 transition-colors">+40 700 000 000</a>
+            sau sună la <a href="tel:+40721703507" className="hover:text-mauve-400 transition-colors">0721 703 507</a>
           </motion.p>
         </div>
 

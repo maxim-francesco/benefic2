@@ -76,7 +76,7 @@ export default function GarantiePage() {
             transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
             className="font-body text-navy-200 text-lg max-w-xl mx-auto leading-relaxed mt-4"
           >
-            Fiecare mașină Benefic Cars vine cu garanție inclusă. Extinde protecția până la 3 ani prin Defend Insurance.
+            Fiecare mașină Benefic Car vine cu garanție inclusă. Extinde protecția până la 3 ani prin Defend Insurance.
           </motion.p>
           
           <motion.div

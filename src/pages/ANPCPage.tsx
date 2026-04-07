@@ -19,7 +19,7 @@ export default function ANPCPage() {
         
         <div className="font-body text-navy-600 leading-relaxed space-y-6">
           <p>
-            BENEFIC CAR S.R.L. se aliniază efortului global pentru menținerea unei conduite de transparență desăvârșite din rațiunea protejării clientului direct, garantând legal și statutar drepturile consumatorilor impuse pe teritoriul României.
+            BENEFIC DARIUS AUTOS S.R.L. se aliniază efortului global pentru menținerea unei conduite de transparență desăvârșite din rațiunea protejării clientului direct, garantând legal și statutar drepturile consumatorilor impuse pe teritoriul României.
           </p>
 
           <h2 className="font-display font-semibold text-navy-700 text-xl mt-8 mb-3">Legături Oficiale ANPC</h2>

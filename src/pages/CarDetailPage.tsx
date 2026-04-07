@@ -285,7 +285,7 @@ export default function CarDetailPage() {
             </div>
 
             <a 
-              href="tel:+40700000000"
+              href="tel:+40721703507"
               className="w-full bg-navy-900 text-white py-4 px-8 rounded-full font-display font-semibold text-lg hover:bg-navy-800 hover:scale-[1.02] shadow-lg shadow-navy-900/20 transition-all flex justify-center items-center gap-2 text-center"
             >
               <Phone size={20} />
@@ -396,7 +396,7 @@ export default function CarDetailPage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
             <a 
-              href="tel:+40700000000"
+              href="tel:+40721703507"
               className="w-full sm:w-auto bg-mauve-600 text-white rounded-full px-8 py-4 font-display font-semibold transition-all duration-300 hover:bg-mauve-500 hover:scale-105 shadow-lg shadow-mauve-600/20 flex items-center justify-center gap-2"
             >
               <Phone size={20} />

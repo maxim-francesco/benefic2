@@ -142,14 +142,14 @@ export default function ContactPage() {
             className="flex flex-col sm:flex-row flex-wrap gap-3 mt-8 justify-center w-full sm:w-auto"
           >
             <a 
-              href="tel:+40700000000"
+              href="tel:+40721703507"
               className="inline-flex items-center justify-center gap-2 bg-mauve-600 text-white rounded-full px-6 py-3.5 font-display font-semibold transition-all hover:bg-mauve-500 text-sm"
             >
               <Phone size={16} />
               Sună Acum
             </a>
             <a 
-              href="mailto:contact@beneficcars.ro"
+              href="mailto:contact@beneficcar.ro"
               className="inline-flex items-center justify-center gap-2 border border-white/20 text-white rounded-full px-6 py-3.5 font-display font-semibold transition-all hover:bg-white/10 text-sm"
             >
               <Mail size={16} />

@@ -72,15 +72,15 @@ export default function Footer() {
             <ul className="flex flex-col gap-3 font-body text-[0.85rem] text-navy-300">
               <li className="flex items-start gap-2">
                 <MapPin size={14} className="min-w-[14px] mt-[0.15rem] text-navy-400" />
-                <span>Str. Exemplu Nr. 1, Oraș, România</span>
+                <span>Șos. Siliștea Ciolpani Nr. 178, Siliștea Snagovului, Ilfov</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={14} className="min-w-[14px] text-navy-400" />
-                <a href="tel:+40700000000" className="hover:text-mauve-400 transition-colors">+40 700 000 000</a>
+                <a href="tel:+40721703507" className="hover:text-mauve-400 transition-colors">0721 703 507</a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={14} className="min-w-[14px] text-navy-400" />
-                <a href="mailto:contact@beneficcars.ro" className="hover:text-mauve-400 transition-colors">contact@beneficcars.ro</a>
+                <a href="mailto:contact@beneficcar.ro" className="hover:text-mauve-400 transition-colors">contact@beneficcar.ro</a>
               </li>
               <li className="mt-2 text-navy-400 flex items-start gap-2">
                 <Clock size={14} className="min-w-[14px] mt-[0.15rem]" />
@@ -94,7 +94,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-6 border-t border-navy-700/50 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="font-body text-navy-300">
-            &copy; 2026 Benefic Cars. Toate drepturile rezervate.
+            &copy; 2026 BENEFIC DARIUS AUTOS S.R.L. | CUI 49835667. Toate drepturile rezervate.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <Link to="/termeni-si-conditii" className="font-body text-navy-300 hover:text-navy-200 transition-colors">Termeni și Condiții</Link>

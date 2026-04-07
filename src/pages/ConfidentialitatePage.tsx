@@ -19,12 +19,12 @@ export default function ConfidentialitatePage() {
         
         <div className="font-body text-navy-600 leading-relaxed space-y-6">
           <p>
-            La BENEFIC CAR S.R.L. tratăm datele dumneavoastră personale cu maximă responsabilitate și ne supunem strict rigorilor Regulamentului General privind Protecția Datelor (GDPR).
+            La BENEFIC DARIUS AUTOS S.R.L. tratăm datele dumneavoastră personale cu maximă responsabilitate și ne supunem strict rigorilor Regulamentului General privind Protecția Datelor (GDPR).
           </p>
 
           <h2 className="font-display font-semibold text-navy-700 text-xl mt-8 mb-3">1. Identitatea Operatorului</h2>
           <p>
-            Operatorul datelor dumneavoastră personale este BENEFIC CAR S.R.L., cu sediul în [COMPLETATI ADRESA], înregistrată la Registrul Comerțului sub nr. [COMPLETATI REG. COM.], CUI [COMPLETATI CUI]. Pentru orice probleme de protecția datelor ne puteți scrie la <a href="mailto:contact@beneficcars.ro" className="text-mauve-600 hover:text-mauve-500 underline">contact@beneficcars.ro</a>.
+            Operatorul datelor dumneavoastră personale este BENEFIC DARIUS AUTOS S.R.L., cu sediul în Sat Ciolpani, Comuna Ciolpani, Str. Calea București Nr. 4B, Jud. Ilfov, înregistrată la Registrul Comerțului sub nr. J2024002312235, CUI 49835667. Pentru orice probleme de protecția datelor ne puteți scrie la <a href="mailto:contact@beneficcar.ro" className="text-mauve-600 hover:text-mauve-500 underline">contact@beneficcar.ro</a>.
           </p>
 
           <h2 className="font-display font-semibold text-navy-700 text-xl mt-8 mb-3">2. Datele colectate</h2>
@@ -44,7 +44,7 @@ export default function ConfidentialitatePage() {
 
           <h2 className="font-display font-semibold text-navy-700 text-xl mt-8 mb-3">4. Destinatarii Datelor</h2>
           <p>
-            Aceste date sunt utilizate intern de departamanetul Vânzări și Financiar al BENEFIC CAR S.R.L. și pot fi partajate doar la cererea expresă catre entități financiare de credit (ex: TBI Bank) strict pentru evaluarea opțiunilor de rate auto agreate în mod direct de către dumneavoastră.
+            Aceste date sunt utilizate intern de departamanetul Vânzări și Financiar al BENEFIC DARIUS AUTOS S.R.L. și pot fi partajate doar la cererea expresă catre entități financiare de credit (ex: TBI Bank) strict pentru evaluarea opțiunilor de rate auto agreate în mod direct de către dumneavoastră.
           </p>
 
           <h2 className="font-display font-semibold text-navy-700 text-xl mt-8 mb-3">5. Durata de stocare</h2>
@@ -54,7 +54,7 @@ export default function ConfidentialitatePage() {
 
           <h2 className="font-display font-semibold text-navy-700 text-xl mt-8 mb-3">6. Drepturile Dumneavoastră</h2>
           <p>
-            Aveți direct și gratuit dreptul legal de a solicita BENEFIC CAR S.R.L. accesul la datele cu caracter personal, rectificarea sau ștergerea acestora (dreptul de a fi uitat). Mai purtați de asemenea dreptul de restricționare, portabilitate, opoziție.
+            Aveți direct și gratuit dreptul legal de a solicita BENEFIC DARIUS AUTOS S.R.L. accesul la datele cu caracter personal, rectificarea sau ștergerea acestora (dreptul de a fi uitat). Mai purtați de asemenea dreptul de restricționare, portabilitate, opoziție.
           </p>
 
           <h2 className="font-display font-semibold text-navy-700 text-xl mt-8 mb-3">7. Reclamații ANSPDCP</h2>

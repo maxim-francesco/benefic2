@@ -14,7 +14,7 @@ export default function ContactMap() {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText("Str. Exemplu Nr. 1, București, România");
+    navigator.clipboard.writeText("Șos. Siliștea Ciolpani Nr. 178, Siliștea Snagovului, Ilfov");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -27,17 +27,17 @@ export default function ContactMap() {
       transition={{ duration: 0.6, type: "spring", stiffness: 80, damping: 20, delay: 0.1 }}
       className="w-full max-w-lg py-16 px-5 md:py-20 md:px-12 mx-auto md:mr-auto md:ml-0 flex flex-col"
     >
-      {/* MAP PLACEHOLDER */}
-      <div className="bg-navy-100 rounded-2xl h-[300px] w-full flex flex-col items-center justify-center overflow-hidden border border-navy-200">
-        <MapPin size={48} className="text-navy-300 mb-2" strokeWidth={1.5} />
-        <span className="text-navy-400 text-sm font-body">Hartă Google Maps</span>
-        {/* Înlocuiește cu iframe Google Maps embed:
-          <iframe 
-            src="https://www.google.com/maps/embed?..." 
-            width="100%" height="100%" 
-            style={{ border: 0 }} allowFullScreen loading="lazy" 
-          />
-        */}
+      {/* GOOGLE MAPS EMBED */}
+      <div className="bg-navy-100 rounded-2xl h-[300px] md:h-[350px] w-full overflow-hidden border border-navy-200">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2833.7728621659253!2d26.170569875718527!3d44.74465058116047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b2237c94b95f69%3A0xc3a80757d20f3b72!2s%C8%98oseaua%20Sili%C8%99tea%20-%20Ciolpani%20178%2C%20077117%20Sili%C8%99tea%20Snagovului!5e0!3m2!1sen!2sro!4v1775559925946!5m2!1sen!2sro" 
+          width="100%" 
+          height="100%" 
+          style={{ border: 0 }} 
+          allowFullScreen 
+          loading="lazy" 
+          referrerPolicy="no-referrer-when-downgrade"
+        />
       </div>
 
       {/* QUICK DETALII */}
@@ -48,7 +48,7 @@ export default function ContactMap() {
           <MapPin size={18} className="text-mauve-600 shrink-0 mt-0.5" />
           <div className="flex flex-col">
             <span className="font-display font-medium text-navy-800 text-sm">Adresă</span>
-            <span className="font-body text-navy-500 text-sm">Str. Exemplu Nr. 1, Oraș, România</span>
+            <span className="font-body text-navy-500 text-sm">Șos. Siliștea Ciolpani Nr. 178, Siliștea Snagovului, Ilfov</span>
           </div>
         </div>
 
@@ -66,7 +66,7 @@ export default function ContactMap() {
           <Phone size={18} className="text-mauve-600 shrink-0 mt-0.5" />
           <div className="flex flex-col">
             <span className="font-display font-medium text-navy-800 text-sm">Telefon</span>
-            <span className="font-body text-navy-500 text-sm">+40 700 000 000</span>
+            <span className="font-body text-navy-500 text-sm">0721 703 507</span>
           </div>
         </div>
 
@@ -75,7 +75,7 @@ export default function ContactMap() {
           <Mail size={18} className="text-mauve-600 shrink-0 mt-0.5" />
           <div className="flex flex-col">
             <span className="font-display font-medium text-navy-800 text-sm">Email</span>
-            <span className="font-body text-navy-500 text-sm">contact@beneficcars.ro</span>
+            <span className="font-body text-navy-500 text-sm">contact@beneficcar.ro</span>
           </div>
         </div>
 
@@ -84,7 +84,7 @@ export default function ContactMap() {
       {/* QUICK LINKS */}
       <div className="mt-6 flex flex-wrap items-center gap-4">
         <a 
-          href="https://maps.google.com" 
+          href="https://maps.google.com/?q=Sos+Silistea+Ciolpani+178+Silistea+Snagovului+Ilfov" 
           target="_blank" rel="noopener noreferrer"
           className="text-sm text-mauve-600 hover:text-mauve-500 transition-colors font-medium flex items-center gap-1.5"
         >

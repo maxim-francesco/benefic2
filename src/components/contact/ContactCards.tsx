@@ -34,8 +34,8 @@ export default function ContactCards() {
         <h3 className="font-display font-medium text-navy-800 text-lg mt-5">
           Sună-ne
         </h3>
-        <a href="tel:+40700000000" className="font-display font-semibold text-navy-800 text-xl mt-2 outline-none focus:text-mauve-600 focus:ring-2 focus:ring-mauve-500 rounded transition-colors">
-          +40 700 000 000
+        <a href="tel:+40721703507" className="font-display font-semibold text-navy-800 text-xl mt-2 outline-none focus:text-mauve-600 focus:ring-2 focus:ring-mauve-500 rounded transition-colors">
+          0721 703 507
         </a>
         <p className="font-body text-navy-500 text-sm mt-1">
           Luni - Sâmbătă, 09:00 - 18:00
@@ -50,8 +50,8 @@ export default function ContactCards() {
         <h3 className="font-display font-medium text-navy-800 text-lg mt-5">
           Scrie-ne
         </h3>
-        <a href="mailto:contact@beneficcars.ro" className="font-display font-semibold text-navy-800 text-xl mt-2 outline-none focus:text-mauve-600 focus:ring-2 focus:ring-mauve-500 rounded transition-colors">
-          contact@beneficcars.ro
+        <a href="mailto:contact@beneficcar.ro" className="font-display font-semibold text-navy-800 text-xl mt-2 outline-none focus:text-mauve-600 focus:ring-2 focus:ring-mauve-500 rounded transition-colors">
+          contact@beneficcar.ro
         </a>
         <p className="font-body text-navy-500 text-sm mt-1">
           Răspundem în maxim 24h
@@ -67,10 +67,10 @@ export default function ContactCards() {
           Vizitează-ne
         </h3>
         <p className="font-display font-semibold text-navy-800 text-lg mt-2 cursor-pointer transition-colors hover:text-mauve-600">
-          Str. Exemplu Nr. 1
+          Șos. Siliștea Ciolpani Nr. 178
         </p>
         <p className="font-body text-navy-500 text-sm mt-1">
-          Oraș, Județul, România
+          Siliștea Snagovului, Ilfov
         </p>
         <p className="font-body text-navy-400 text-xs mt-2">
           Program: Luni - Sâmbătă, 09:00 - 18:00

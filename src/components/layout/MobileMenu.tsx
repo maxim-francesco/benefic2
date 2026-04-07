@@ -27,7 +27,7 @@ export default function MobileMenu({ isOpen, onClose }: Props) {
             <Link to="/buyback" onClick={onClose} className="font-display text-[1.5rem] font-medium text-white tracking-[0.1em] uppercase">Buy Back</Link>
             <Link to="/contact" onClick={onClose} className="font-display text-[1.5rem] font-medium text-white tracking-[0.1em] uppercase">Contact</Link>
             
-            <a href="tel:+40700000000" onClick={onClose} className="mt-8 font-display text-[0.8rem] font-semibold text-navy-800 bg-white px-8 py-[0.8rem] rounded-full tracking-[0.04em] transition-transform active:scale-95 flex items-center gap-1.5">
+            <a href="tel:+40721703507" onClick={onClose} className="mt-8 font-display text-[0.8rem] font-semibold text-navy-800 bg-white px-8 py-[0.8rem] rounded-full tracking-[0.04em] transition-transform active:scale-95 flex items-center gap-1.5">
               <Phone size={14} />
               Sună-ne
             </a>
