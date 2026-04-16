@@ -21,9 +21,9 @@ function ParallaxCard({ car, index, scrollYProgress }: { car: CarProps; index: n
   return (
     <motion.div 
       style={{ y }}
-      className="w-[85vw] md:w-[350px] lg:w-[400px] flex-shrink-0"
+      className="w-[85vw] md:w-[350px] lg:w-[400px] flex-shrink-0 h-full flex flex-col"
     >
-      <div className="relative h-full p-[1px]">
+      <div className="relative h-full p-[1px] flex-1 flex flex-col">
         <CarCard car={car} index={index} />
       </div>
     </motion.div>
@@ -157,7 +157,7 @@ export default function FeaturedCars() {
 
         <motion.div 
           ref={trackRef}
-          className="flex flex-row gap-4 md:gap-8 flex-nowrap px-[1.2rem] md:px-12 pb-12 w-max items-start pt-[60px] -mt-[60px]"
+          className="flex flex-row gap-4 md:gap-8 flex-nowrap px-[1.2rem] md:px-12 pb-12 w-max items-stretch pt-[60px] -mt-[60px]"
           style={{ x }}
         >
           {displayCars.map((car, index) => (

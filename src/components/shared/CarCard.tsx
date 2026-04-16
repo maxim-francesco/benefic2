@@ -22,10 +22,11 @@ export function CarCard({ car, index }: { car: CarProps; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      className="h-full flex flex-col"
     >
       <Link to={`/masini/${car.id}`} className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-navy-100 hover:border-navy-200 hover:shadow-lg hover:shadow-navy-800/10 transition-all duration-[350ms] ease-out hover:-translate-y-2 cursor-pointer h-full">
         {/* Image container cu aspect 4:3 */}
-        <div className="relative aspect-[4/3] bg-navy-50 overflow-hidden">
+        <div className="relative aspect-[4/3] bg-navy-50 overflow-hidden shrink-0">
           {car.image ? (
             <img 
               src={car.image} 

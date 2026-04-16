@@ -112,9 +112,9 @@ export default function CarsPage() {
         const targetPage = Number(searchParams.get('page')) || 1;
         if (targetPage > 1) {
           url.searchParams.append('page', targetPage.toString());
-          url.searchParams.append('limit', '12'); // Only when page exists
         }
 
+        console.log("FETCH URL:", url.toString());
         const res = await fetch(url.toString());
         if (!res.ok) throw new Error('Failed to fetch listings');
         
@@ -483,12 +483,13 @@ export default function CarsPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: idx * 0.05 }}
+                className="h-full"
               >
                 <Link 
                   to={`/masini/${car.id}`} 
-                  className="group block bg-white rounded-2xl border border-navy-100 shadow-sm hover:shadow-[0_12px_40px_-12px_rgba(26,31,61,0.15)] transition-all duration-300 hover:-translate-y-1.5 p-2"
+                  className="group flex flex-col h-full bg-white rounded-2xl border border-navy-100 shadow-sm hover:shadow-[0_12px_40px_-12px_rgba(26,31,61,0.15)] transition-all duration-300 hover:-translate-y-1.5 p-2"
                 >
-                  <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-navy-50 border border-navy-100/50">
+                  <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-navy-50 border border-navy-100/50 shrink-0">
                     <img 
                       src={car.images?.[0]?.url || 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=600'} 
                       alt={car.title}
@@ -499,16 +500,12 @@ export default function CarsPage() {
                     />
                   </div>
                   
-                  <div className="p-4 flex flex-col h-[180px]">
-                    <h3 className="font-display font-semibold text-navy-800 text-lg leading-snug line-clamp-2">
+                  <div className="p-4 flex flex-col flex-1">
+                    <h3 className="font-display font-semibold text-navy-800 text-lg leading-snug">
                       {car.title}
                     </h3>
                     
-                    <div className="font-display font-bold text-mauve-600 text-xl mt-3 mb-auto">
-                      {formatPrice(car)}
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-y-3 gap-x-2 pt-4 border-t border-navy-100/60 mt-4">
+                    <div className="grid grid-cols-2 gap-y-3 gap-x-2 pt-4 mt-auto">
                       <div className="flex items-center gap-1.5 text-navy-600 font-body text-xs font-medium">
                         <Calendar size={14} className="text-navy-400 shrink-0" />
                         <span className="truncate">{getYear(car)}</span>
@@ -524,6 +521,12 @@ export default function CarsPage() {
                       <div className="flex items-center gap-1.5 text-navy-600 font-body text-xs font-medium">
                         <Settings size={14} className="text-navy-400 shrink-0" />
                         <span className="truncate">{getGearbox(car)}</span>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-navy-100/60 mt-4 flex items-center justify-between">
+                      <div className="font-display font-bold text-mauve-600 text-xl">
+                        {formatPrice(car)}
                       </div>
                     </div>
                   </div>
