@@ -14,15 +14,16 @@ import { Settings } from 'lucide-react';
 import { CheckCircle } from 'lucide-react';
 import { AlertCircle } from 'lucide-react';
 import { Info } from 'lucide-react';
+import { API_BASE } from '../lib/constants';
 
 interface APICarDetail {
   id: string;
   title: string;
+  price: number;
   description?: string;
-  price?: number;
-  images: { url: string; order: number }[];
+  images: { url: string; order?: number }[];
   attributeValues: {
-    attribute: { name: string; type: string; attributeGroup?: { name: string } };
+    attribute: { name: string };
     stringValue?: string | null;
     numberValue?: number | null;
     booleanValue?: boolean | null;
@@ -31,7 +32,7 @@ interface APICarDetail {
 }
 
 export default function CarDetailPage() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const [car, setCar] = useState<APICarDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -45,7 +46,7 @@ export default function CarDetailPage() {
       setLoading(true);
       setError(false);
       try {
-        const res = await fetch(`https://saas-platform-backend.onrender.com/api/public/listings/${id}`);
+        const res = await fetch(`${API_BASE}/api/public/listings/${id}`);
         if (!res.ok) throw new Error('Listing not found');
         
         const json = await res.json();
@@ -198,11 +199,18 @@ export default function CarDetailPage() {
           
           {/* Stânga: Galerie */}
           <div className="w-full lg:w-[60%]">
-            <button 
-              type="button"
+            <div 
+              role="button"
+              tabIndex={0}
               aria-label="Mărește fotografia"
               className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-navy-50 border border-navy-100/50 group cursor-zoom-in shadow-sm shadow-navy-900/5 text-left block p-0"
               onClick={() => setLightboxOpen(true)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setLightboxOpen(true);
+                }
+              }}
             >
               <AnimatePresence mode="wait">
                 <motion.img
@@ -221,12 +229,16 @@ export default function CarDetailPage() {
               {isMultipleImages && (
                 <>
                   <button 
+                    type="button"
+                    aria-label="Fotografia anterioară"
                     onClick={(e) => { e.stopPropagation(); prevImg(e); }}
                     className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-navy-800 hover:bg-white hover:scale-105 transition-all opacity-0 group-hover:opacity-100 shadow-lg"
                   >
                     <ChevronLeft size={24} />
                   </button>
                   <button 
+                    type="button"
+                    aria-label="Fotografia următoare"
                     onClick={(e) => { e.stopPropagation(); nextImg(e); }}
                     className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-navy-800 hover:bg-white hover:scale-105 transition-all opacity-0 group-hover:opacity-100 shadow-lg"
                   >
@@ -234,7 +246,7 @@ export default function CarDetailPage() {
                   </button>
                 </>
               )}
-            </button>
+            </div>
             
             {/* Navigatie Mici */}
             {isMultipleImages && (

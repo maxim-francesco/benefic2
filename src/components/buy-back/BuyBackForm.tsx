@@ -5,6 +5,7 @@ import { CheckCircle } from 'lucide-react';
 import { Check } from 'lucide-react';
 import { AlertCircle } from 'lucide-react';
 import { Loader2 } from 'lucide-react';
+import { API_BASE } from '../../lib/constants';
 
 export default function BuyBackForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -49,11 +50,12 @@ Detalii suplimentare:
 ${formData.details || 'Nu au fost oferite detalii suplimentare.'}`;
 
     try {
-      const res = await fetch('https://saas-platform-backend.onrender.com/api/public/contact', {
+      const res = await fetch(`${API_BASE}/api/public/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           businessId: 'cmnmfqggh02hkxi2784vniylc',
+          type: 'BUYBACK',
           name: formData.name,
           email: formData.email,
           phone: formData.phone,

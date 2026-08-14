@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { motion, useInView, useScroll, useTransform, MotionValue } from 'framer-motion';
 import { CarCard } from '../shared/CarCard';
 import type { CarProps } from '../shared/CarCard';
+import { API_BASE, BUSINESS_ID, CATEGORY_ID } from '../../lib/constants';
 
 const MOCK_DATA: CarProps[] = [
   { id: 1, brand: "BMW", model: "Seria 3 320d", year: 2021, km: 45000, fuel: "Diesel", price: 25900, monthly: 299, badge: "NOU" },
@@ -40,7 +41,7 @@ export default function FeaturedCars() {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const res = await fetch('https://saas-platform-backend.onrender.com/api/public/listings/search?businessId=cmnmfqggh02hkxi2784vniylc&categoryId=cmnmfqhga02hoxi279etfboqy');
+        const res = await fetch(`${API_BASE}/api/public/listings/search?businessId=${BUSINESS_ID}&categoryId=${CATEGORY_ID}`);
         if (!res.ok) throw new Error("API error");
         const json = await res.json();
         if (json.data && json.data.length > 0) {

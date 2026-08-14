@@ -13,6 +13,7 @@ import { AlertCircle } from 'lucide-react';
 import { Search } from 'lucide-react';
 import { SlidersHorizontal } from 'lucide-react';
 import { X } from 'lucide-react';
+import { API_BASE, BUSINESS_ID, CATEGORY_ID } from '../lib/constants';
 
 interface APIListing {
   id: string;
@@ -34,12 +35,22 @@ interface PaginationData {
   totalPages: number;
 }
 
+interface FilterMeta {
+  marca: string[];
+  combustibil: string[];
+  cutie: string[];
+  pret: { min: number; max: number };
+  an: { min: number; max: number };
+  km: { min: number; max: number };
+}
+
 export default function CarsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [cars, setCars] = useState<APIListing[]>([]);
-  const [pagination, setPagination] = useState<PaginationData | null>(null);
+  const [pagination, setPagination] = useState<PaginationData>({ total: 0, page: 1, limit: 12, totalPages: 1 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   
   // Refined Local UI States
   const [isExpanded, setIsExpanded] = useState(false);
@@ -47,13 +58,13 @@ export default function CarsPage() {
   const [localInputs, setLocalInputs] = useState<Record<string, string>>({});
 
   // Meta States
-  const [filterMeta, setFilterMeta] = useState({
-    marca: [] as string[],
-    combustibil: [] as string[],
-    cutie: [] as string[],
-    pret: { min: 0, max: 0 },
-    an: { min: 0, max: 0 },
-    km: { min: 0, max: 0 }
+  const [filterMeta, setFilterMeta] = useState<FilterMeta>({
+    marca: [],
+    combustibil: [],
+    cutie: [],
+    pret: { min: 0, max: 100000 },
+    an: { min: 2000, max: 2026 },
+    km: { min: 0, max: 300000 },
   });
 
   // Sync Input States With URL
@@ -68,12 +79,12 @@ export default function CarsPage() {
     const fetchMeta = async () => {
       try {
         const [marcaRes, combRes, cutieRes, pretRes, anRes, kmRes] = await Promise.all([
-          fetch('https://saas-platform-backend.onrender.com/api/public/attributes/cmnmfqjv602jmxi27sdfn8bsf/unique-values').then(r => r.json()),
-          fetch('https://saas-platform-backend.onrender.com/api/public/attributes/cmnmfqhzr02hyxi27c0luo0km/unique-values').then(r => r.json()),
-          fetch('https://saas-platform-backend.onrender.com/api/public/attributes/cmnmfqi6l02i4xi27hof6g4fk/unique-values').then(r => r.json()),
-          fetch('https://saas-platform-backend.onrender.com/api/public/attributes/cmnmfqjqx02jixi275e0ecjqt/stats').then(r => r.json()),
-          fetch('https://saas-platform-backend.onrender.com/api/public/attributes/cmnmfqjt102jkxi27tfu6crga/stats').then(r => r.json()),
-          fetch('https://saas-platform-backend.onrender.com/api/public/attributes/cmnmfqjzs02jqxi278nk9ghl7/stats').then(r => r.json()),
+          fetch(`${API_BASE}/api/public/attributes/cmnmfqjv602jmxi27sdfn8bsf/unique-values`).then(r => r.json()),
+          fetch(`${API_BASE}/api/public/attributes/cmnmfqhzr02hyxi27c0luo0km/unique-values`).then(r => r.json()),
+          fetch(`${API_BASE}/api/public/attributes/cmnmfqi6l02i4xi27hof6g4fk/unique-values`).then(r => r.json()),
+          fetch(`${API_BASE}/api/public/attributes/cmnmfqjqx02jixi275e0ecjqt/stats`).then(r => r.json()),
+          fetch(`${API_BASE}/api/public/attributes/cmnmfqjt102jkxi27tfu6crga/stats`).then(r => r.json()),
+          fetch(`${API_BASE}/api/public/attributes/cmnmfqjzs02jqxi278nk9ghl7/stats`).then(r => r.json()),
         ]);
 
         setFilterMeta({
@@ -99,9 +110,9 @@ export default function CarsPage() {
       setLoading(true);
       setError(false);
       try {
-        const url = new URL('https://saas-platform-backend.onrender.com/api/public/listings/search');
-        url.searchParams.append('businessId', 'cmnmfqggh02hkxi2784vniylc');
-        url.searchParams.append('categoryId', 'cmnmfqhga02hoxi279etfboqy');
+        const url = new URL(`${API_BASE}/api/public/listings/search`);
+        url.searchParams.append('businessId', BUSINESS_ID);
+        url.searchParams.append('categoryId', CATEGORY_ID);
 
         const filtersMap = ['q', 'Marca', 'Combustibil', 'Pret_min', 'Pret_max', 'An_min', 'An_max', 'Kilometraj_min', 'Kilometraj_max', 'Cutie de viteze'];
         filtersMap.forEach(key => {

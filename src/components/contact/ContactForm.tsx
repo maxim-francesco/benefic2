@@ -4,6 +4,7 @@ import { CheckCircle } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
 import { AlertCircle } from 'lucide-react';
 import { Loader2 } from 'lucide-react';
+import { API_BASE } from '../../lib/constants';
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -31,11 +32,12 @@ export default function ContactForm() {
       : formData.message;
 
     try {
-      const res = await fetch('https://saas-platform-backend.onrender.com/api/public/contact', {
+      const res = await fetch(`${API_BASE}/api/public/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           businessId: 'cmnmfqggh02hkxi2784vniylc',
+          type: 'GENERAL',
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
