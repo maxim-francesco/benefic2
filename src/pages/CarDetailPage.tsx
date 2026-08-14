@@ -23,7 +23,7 @@ interface APICarDetail {
   description?: string;
   images: { url: string; order?: number }[];
   attributeValues: {
-    attribute: { name: string };
+    attribute: { name: string; attributeGroup?: { name: string } | null };
     stringValue?: string | null;
     numberValue?: number | null;
     booleanValue?: boolean | null;

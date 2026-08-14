@@ -50,7 +50,6 @@ export default function CarsPage() {
   const [pagination, setPagination] = useState<PaginationData>({ total: 0, page: 1, limit: 12, totalPages: 1 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   
   // Refined Local UI States
   const [isExpanded, setIsExpanded] = useState(false);
