@@ -2,47 +2,48 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft } from 'lucide-react';
-import { ChevronRight } from 'lucide-react';
-import { X } from 'lucide-react';
-import { Phone } from 'lucide-react';
-import { Mail } from 'lucide-react';
-import { Calendar } from 'lucide-react';
-import { Fuel } from 'lucide-react';
-import { Gauge } from 'lucide-react';
-import { Settings } from 'lucide-react';
-import { CheckCircle } from 'lucide-react';
-import { AlertCircle } from 'lucide-react';
-import { Info } from 'lucide-react';
-import { API_BASE } from '../lib/constants';
-
-interface APICarDetail {
-  id: string;
-  title: string;
-  price: number;
-  description?: string;
-  images: { url: string; order?: number }[];
-  attributeValues: {
-    attribute: { name: string; attributeGroup?: { name: string } | null };
-    stringValue?: string | null;
-    numberValue?: number | null;
-    booleanValue?: boolean | null;
-  }[];
-  category?: { name: string };
-}
+import { 
+  ChevronLeft, 
+  ChevronRight, 
+  X, 
+  Phone, 
+  Mail, 
+  Calendar, 
+  Fuel, 
+  Gauge, 
+  Settings, 
+  CheckCircle, 
+  AlertCircle, 
+  Info,
+  Loader2,
+  Send
+} from 'lucide-react';
+import { API_BASE, BUSINESS_ID } from '../lib/constants';
+import type { APIListing } from '../lib/attributes';
+import { getAttributeValueById } from '../lib/attributes';
 
 export default function CarDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const [car, setCar] = useState<APICarDetail | null>(null);
+  const [car, setCar] = useState<APIListing | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [imgIndex, setImgIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
 
+  // Form State for Inline Enquiry
+  const [enquiryName, setEnquiryName] = useState("");
+  const [enquiryPhone, setEnquiryPhone] = useState("");
+  const [enquiryEmail, setEnquiryEmail] = useState("");
+  const [enquiryMessage, setEnquiryMessage] = useState("");
+  const [enquiryConsent, setEnquiryConsent] = useState(false);
+  const [isSubmittingEnquiry, setIsSubmittingEnquiry] = useState(false);
+  const [enquirySuccess, setEnquirySuccess] = useState(false);
+  const [enquiryError, setEnquiryError] = useState<string | null>(null);
+
   useEffect(() => {
     const fetchCar = async () => {
-      window.scrollTo(0, 0); // extra safety scroll
+      window.scrollTo(0, 0);
       setLoading(true);
       setError(false);
       try {
@@ -51,12 +52,12 @@ export default function CarDetailPage() {
         
         const json = await res.json();
         
-        // Sort images by order if it exists
         if (json.images && Array.isArray(json.images)) {
            json.images.sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
         }
         
         setCar(json);
+        setEnquiryMessage(`Bună ziua, sunt interesat de ${json.title}. Aș dori mai multe detalii.`);
       } catch (err) {
         if (import.meta.env.DEV) {
           console.error('Fetch car details error:', err);
@@ -105,7 +106,6 @@ export default function CarDetailPage() {
     }
   };
 
-  // UI Handlers
   const nextImg = (e?: React.MouseEvent) => {
     e?.stopPropagation();
     if (!car?.images?.length) return;
@@ -118,16 +118,81 @@ export default function CarDetailPage() {
     setImgIndex((prev) => (prev === 0 ? car.images.length - 1 : prev - 1));
   };
 
-  // Helper selections
-  const getAttr = (name: string) => car?.attributeValues?.find(a => a.attribute.name === name);
-  
-  const priceAttr = getAttr('Pret');
-  const actualPrice = car?.price || priceAttr?.numberValue;
+  // Inline Enquiry Form Handler
+  const handleEnquirySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!car) return;
+    setEnquiryError(null);
+    setEnquirySuccess(false);
 
-  const year = getAttr('An')?.numberValue;
-  const km = getAttr('Kilometraj')?.numberValue;
-  const fuel = getAttr('Combustibil')?.stringValue;
-  const gb = getAttr('Cutie de viteze')?.stringValue;
+    if (!enquiryName.trim()) {
+      setEnquiryError("Vă rugăm să introduceți numele dumneavoastră.");
+      return;
+    }
+    if (!enquiryPhone.trim()) {
+      setEnquiryError("Vă rugăm să introduceți numărul de telefon.");
+      return;
+    }
+    if (!enquiryEmail.trim()) {
+      setEnquiryError("Vă rugăm să introduceți adresa de email.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(enquiryEmail.trim())) {
+      setEnquiryError("Vă rugăm să introduceți o adresă de email validă.");
+      return;
+    }
+
+    if (!enquiryConsent) {
+      setEnquiryError("Trebuie să fiți de acord cu politica de confidențialitate.");
+      return;
+    }
+
+    setIsSubmittingEnquiry(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/public/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          businessId: BUSINESS_ID,
+          name: enquiryName.trim(),
+          phone: enquiryPhone.trim(),
+          email: enquiryEmail.trim(),
+          message: enquiryMessage.trim(),
+          type: "STOCK",
+          listingId: car.id,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Eroare la trimiterea mesajului.");
+      }
+
+      setEnquirySuccess(true);
+      setEnquiryName("");
+      setEnquiryPhone("");
+      setEnquiryEmail("");
+      setEnquiryConsent(false);
+    } catch (err) {
+      if (import.meta.env.DEV) {
+        console.error("Enquiry submission error:", err);
+      }
+      setEnquiryError("A apărut o eroare. Te rugăm să încerci din nou sau să ne suni direct.");
+    } finally {
+      setIsSubmittingEnquiry(false);
+    }
+  };
+
+  // Helper selections using getAttributeValueById
+  const priceAttr = car ? getAttributeValueById(car, ["attr:price"], ["pret"]) : null;
+  const actualPrice = car?.price || (typeof priceAttr === "number" ? priceAttr : (typeof priceAttr === "string" ? parseInt(priceAttr, 10) : null));
+
+  const year = car ? getAttributeValueById(car, ["attr:year"], ["an"]) : null;
+  const kmVal = car ? getAttributeValueById(car, ["attr:mileage"], ["kilometraj", "rulaj"]) : null;
+  const km = typeof kmVal === "number" ? kmVal : (typeof kmVal === "string" ? parseInt(kmVal, 10) : null);
+  const fuel = car ? getAttributeValueById(car, ["attr:fuelType"], ["combustibil"]) : null;
+  const gb = car ? getAttributeValueById(car, ["attr:gearbox", "attr:transmission"], ["cutie de viteze", "transmisie"]) : null;
 
   // Group attributes
   const specsByGroup = car?.attributeValues?.reduce((acc, attr) => {
@@ -136,7 +201,6 @@ export default function CarDetailPage() {
     acc[groupName].push(attr);
     return acc;
   }, {} as Record<string, typeof car.attributeValues>);
-
 
   if (loading) {
     return (
@@ -185,11 +249,14 @@ export default function CarDetailPage() {
   const currentImgUrl = images[imgIndex].url;
   const isMultipleImages = images.length > 1;
 
+  const makeVal = getAttributeValueById(car, ["attr:brand", "attr:make"], ["marca"]);
+  const modelVal = getAttributeValueById(car, ["attr:model"], ["model"]);
+
   return (
     <>
       <Helmet>
         <title>{car.title} — Benefic Car</title>
-        <meta name="description" content={`${getAttr('Marca')?.stringValue || ''} ${getAttr('Model')?.stringValue || ''}, ${getAttr('An')?.numberValue || ''}, ${getAttr('Kilometraj')?.numberValue || ''} km, ${getAttr('Combustibil')?.stringValue || ''} — disponibil la Benefic Car cu garanție și finanțare.`} />
+        <meta name="description" content={`${makeVal || ''} ${modelVal || ''}, ${year || ''}, ${km || ''} km, ${fuel || ''} — disponibil la Benefic Car cu garanție și finanțare.`} />
       </Helmet>
       <main id="main-content" className="w-full bg-white pt-[100px] md:pt-[120px] min-h-screen">
       
@@ -232,7 +299,7 @@ export default function CarDetailPage() {
                     type="button"
                     aria-label="Fotografia anterioară"
                     onClick={(e) => { e.stopPropagation(); prevImg(e); }}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-navy-800 hover:bg-white hover:scale-105 transition-all opacity-0 group-hover:opacity-100 shadow-lg"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-navy-800 hover:bg-white hover:scale-105 transition-all opacity-0 group-hover:opacity-100 shadow-lg min-h-[44px]"
                   >
                     <ChevronLeft size={24} />
                   </button>
@@ -240,7 +307,7 @@ export default function CarDetailPage() {
                     type="button"
                     aria-label="Fotografia următoare"
                     onClick={(e) => { e.stopPropagation(); nextImg(e); }}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-navy-800 hover:bg-white hover:scale-105 transition-all opacity-0 group-hover:opacity-100 shadow-lg"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-navy-800 hover:bg-white hover:scale-105 transition-all opacity-0 group-hover:opacity-100 shadow-lg min-h-[44px]"
                   >
                     <ChevronRight size={24} />
                   </button>
@@ -273,32 +340,32 @@ export default function CarDetailPage() {
               {year && (
                 <div className="flex items-center gap-2 bg-navy-50 border border-navy-100 px-4 py-2.5 rounded-xl text-navy-700 font-body text-sm font-medium">
                   <Calendar size={16} className="text-navy-400" />
-                  {year}
+                  {String(year)}
                 </div>
               )}
-              {km !== undefined && (
+              {km !== null && km !== undefined && !isNaN(km) && (
                 <div className="flex items-center gap-2 bg-navy-50 border border-navy-100 px-4 py-2.5 rounded-xl text-navy-700 font-body text-sm font-medium">
                   <Gauge size={16} className="text-navy-400" />
-                  {km?.toLocaleString('de-DE')} km
+                  {km.toLocaleString('de-DE')} km
                 </div>
               )}
               {fuel && (
                 <div className="flex items-center gap-2 bg-navy-50 border border-navy-100 px-4 py-2.5 rounded-xl text-navy-700 font-body text-sm font-medium">
                   <Fuel size={16} className="text-navy-400" />
-                  {fuel}
+                  {String(fuel)}
                 </div>
               )}
               {gb && (
                 <div className="flex items-center gap-2 bg-navy-50 border border-navy-100 px-4 py-2.5 rounded-xl text-navy-700 font-body text-sm font-medium">
                   <Settings size={16} className="text-navy-400" />
-                  {gb}
+                  {String(gb)}
                 </div>
               )}
             </div>
 
             <a 
               href="tel:+40721703507"
-              className="w-full bg-navy-900 text-white py-4 px-8 rounded-full font-display font-semibold text-lg hover:bg-navy-800 hover:scale-[1.02] shadow-lg shadow-navy-900/20 transition-all flex justify-center items-center gap-2 text-center"
+              className="w-full bg-navy-900 text-white py-4 px-8 rounded-full font-display font-semibold text-lg hover:bg-navy-800 hover:scale-[1.02] shadow-lg shadow-navy-900/20 transition-all flex justify-center items-center gap-2 text-center min-h-[44px]"
             >
               <Phone size={20} />
               Contactează-ne Recomandat
@@ -319,7 +386,6 @@ export default function CarDetailPage() {
 
           <div className="flex flex-col gap-10">
             {Object.entries(specsByGroup || {}).map(([groupName, attributes]) => {
-              // Filtrăm atributele booleene care sunt false
               const validAttributes = attributes.filter(attr => {
                 const isBool = attr.booleanValue !== null && attr.booleanValue !== undefined;
                 if (isBool && attr.booleanValue !== true) return false;
@@ -399,7 +465,146 @@ export default function CarDetailPage() {
         </section>
       )}
 
-      {/* 4. CTA FINAL */}
+      {/* 4. INLINE ENQUIRY FORM SECTION */}
+      <section className="bg-navy-50/70 py-16 border-t border-navy-100">
+        <div className="max-w-3xl mx-auto px-5 md:px-8">
+          <div className="bg-white rounded-2xl p-6 md:p-10 border border-navy-100 shadow-md">
+            <div className="text-center mb-8">
+              <h2 className="font-display font-bold text-navy-900 text-2xl md:text-3xl">
+                Ești interesat de această mașină?
+              </h2>
+              <p className="font-body text-navy-500 text-sm mt-2">
+                Lasă-ne datele tale și te contactăm în cel mai scurt timp.
+              </p>
+            </div>
+
+            {enquirySuccess ? (
+              <div className="bg-emerald-950/30 border border-emerald-500/30 rounded-xl p-6 flex flex-col items-center text-center gap-3">
+                <CheckCircle size={36} className="text-emerald-400 shrink-0" />
+                <span className="font-body font-medium text-emerald-900 text-sm leading-relaxed">
+                  Mesajul tău a fost trimis cu succes!<br/>Revenim în cel mai scurt timp.
+                </span>
+              </div>
+            ) : (
+              <form onSubmit={handleEnquirySubmit} className="space-y-4">
+                {enquiryError && (
+                  <div className="bg-red-950/50 border border-red-500/50 rounded-xl p-4 flex items-center gap-3 text-red-200 text-sm font-body">
+                    <AlertCircle size={18} className="text-red-400 shrink-0" />
+                    {enquiryError}
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="flex flex-col">
+                    <label htmlFor="enquiry-name" className="font-display font-medium text-navy-700 text-xs mb-1">
+                      Nume și Prenume *
+                    </label>
+                    <input
+                      id="enquiry-name"
+                      type="text"
+                      placeholder="Numele tău"
+                      value={enquiryName}
+                      onChange={(e) => setEnquiryName(e.target.value)}
+                      disabled={isSubmittingEnquiry}
+                      className="w-full bg-navy-50/50 border border-navy-200 rounded-xl px-4 py-3 font-body text-sm text-navy-800 focus:border-mauve-500 focus:ring-2 focus:ring-mauve-100 outline-none transition-all min-h-[44px]"
+                      required
+                    />
+                  </div>
+
+                  <div className="flex flex-col">
+                    <label htmlFor="enquiry-phone" className="font-display font-medium text-navy-700 text-xs mb-1">
+                      Telefon *
+                    </label>
+                    <input
+                      id="enquiry-phone"
+                      type="tel"
+                      placeholder="+40 722 123 456"
+                      value={enquiryPhone}
+                      onChange={(e) => setEnquiryPhone(e.target.value)}
+                      disabled={isSubmittingEnquiry}
+                      className="w-full bg-navy-50/50 border border-navy-200 rounded-xl px-4 py-3 font-body text-sm text-navy-800 focus:border-mauve-500 focus:ring-2 focus:ring-mauve-100 outline-none transition-all min-h-[44px]"
+                      required
+                    />
+                  </div>
+
+                  <div className="flex flex-col">
+                    <label htmlFor="enquiry-email" className="font-display font-medium text-navy-700 text-xs mb-1">
+                      Email *
+                    </label>
+                    <input
+                      id="enquiry-email"
+                      type="email"
+                      placeholder="adresa@email.ro"
+                      value={enquiryEmail}
+                      onChange={(e) => setEnquiryEmail(e.target.value)}
+                      disabled={isSubmittingEnquiry}
+                      className="w-full bg-navy-50/50 border border-navy-200 rounded-xl px-4 py-3 font-body text-sm text-navy-800 focus:border-mauve-500 focus:ring-2 focus:ring-mauve-100 outline-none transition-all min-h-[44px]"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col">
+                  <label htmlFor="enquiry-message" className="font-display font-medium text-navy-700 text-xs mb-1">
+                    Mesaj
+                  </label>
+                  <textarea
+                    id="enquiry-message"
+                    rows={3}
+                    value={enquiryMessage}
+                    onChange={(e) => setEnquiryMessage(e.target.value)}
+                    disabled={isSubmittingEnquiry}
+                    className="w-full bg-navy-50/50 border border-navy-200 rounded-xl px-4 py-3 font-body text-sm text-navy-800 focus:border-mauve-500 focus:ring-2 focus:ring-mauve-100 outline-none transition-all resize-none min-h-[80px]"
+                  />
+                </div>
+
+                <div className="flex items-start gap-3 pt-2">
+                  <input
+                    id="enquiry-consent"
+                    type="checkbox"
+                    checked={enquiryConsent}
+                    onChange={(e) => setEnquiryConsent(e.target.checked)}
+                    disabled={isSubmittingEnquiry}
+                    className="w-4 h-4 mt-0.5 text-mauve-600 rounded border-navy-300 focus:ring-mauve-500 cursor-pointer shrink-0"
+                  />
+                  <label htmlFor="enquiry-consent" className="font-body text-xs text-navy-600 leading-snug cursor-pointer">
+                    Am citit și sunt de acord cu{" "}
+                    <a
+                      href="/politica-confidentialitate"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline text-mauve-600 hover:text-mauve-700"
+                    >
+                      Politica de Confidențialitate
+                    </a>{" "}
+                    a site-ului.
+                  </label>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={!enquiryConsent || isSubmittingEnquiry}
+                  className="w-full sm:w-auto bg-mauve-600 text-white rounded-full px-8 py-3.5 font-display font-semibold transition-all duration-300 hover:bg-mauve-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-h-[44px]"
+                >
+                  {isSubmittingEnquiry ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      Se trimite...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      Trimite solicitarea
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. CTA FINAL */}
       <section className="bg-navy-900 py-16 md:py-20 border-t border-navy-800">
         <div className="max-w-4xl mx-auto px-5 text-center">
           <h2 className="font-display font-bold text-white text-3xl mb-4">Ești interesat de această mașină?</h2>
@@ -409,14 +614,14 @@ export default function CarDetailPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
             <a 
               href="tel:+40721703507"
-              className="w-full sm:w-auto bg-mauve-600 text-white rounded-full px-8 py-4 font-display font-semibold transition-all duration-300 hover:bg-mauve-500 hover:scale-105 shadow-lg shadow-mauve-600/20 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto bg-mauve-600 text-white rounded-full px-8 py-4 font-display font-semibold transition-all duration-300 hover:bg-mauve-500 hover:scale-105 shadow-lg shadow-mauve-600/20 flex items-center justify-center gap-2 min-h-[44px]"
             >
               <Phone size={20} />
               Sună Acum
             </a>
             <Link 
               to="/contact"
-              className="w-full sm:w-auto bg-navy-800 text-white border border-navy-700 rounded-full px-8 py-4 font-display font-semibold transition-all duration-300 hover:bg-navy-700 shadow-lg shadow-navy-950/20 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto bg-navy-800 text-white border border-navy-700 rounded-full px-8 py-4 font-display font-semibold transition-all duration-300 hover:bg-navy-700 shadow-lg shadow-navy-950/20 flex items-center justify-center gap-2 min-h-[44px]"
             >
               <Mail size={20} />
               Trimite Mesaj
@@ -468,11 +673,11 @@ export default function CarDetailPage() {
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              key={currentImgUrl} // Re-animate if image changes
+              key={currentImgUrl}
               src={currentImgUrl}
               alt={`View ${imgIndex}`}
               className="max-w-[90vw] max-h-[85vh] object-contain rounded-lg"
-              onClick={(e) => e.stopPropagation()} // don't close when clicking image
+              onClick={(e) => e.stopPropagation()}
             />
             
             {/* Counter */}
