@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView, animate } from 'framer-motion';
-import { Link } from 'react-router-dom';
 
 function CustomSlider({ min, max, step, value, onChange }: { min: number, max: number, step: number, value: number, onChange: (v: number) => void }) {
   // Evităm împărțirea la zero în cazul extrem

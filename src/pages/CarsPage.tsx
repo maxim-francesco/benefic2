@@ -156,8 +156,6 @@ export default function CarsPage() {
           facets={facets}
           filters={filters}
           onFilterChange={handleFilterChange}
-          filteredCount={facets.filteredListings.length}
-          totalCount={cars.length}
           onOpenMobile={() => setIsMobileFiltersOpen(true)}
         />
 
@@ -175,8 +173,6 @@ export default function CarsPage() {
             facets={facets}
             filters={filters}
             onFilterChange={handleFilterChange}
-            filteredCount={facets.filteredListings.length}
-            totalCount={cars.length}
           />
 
           {/* MAIN RESULTS GRID CONTAINER */}

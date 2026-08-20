@@ -709,13 +709,10 @@ export function DesktopFilterSidebar({
   facets,
   filters,
   onFilterChange,
-  totalCount,
 }: {
   facets: ReturnType<typeof useStockFacets>;
   filters: FilterState;
   onFilterChange: (newFilters: FilterState) => void;
-  filteredCount: number;
-  totalCount: number;
 }) {
   const hasActive =
     filters.marca.length > 0 ||
@@ -783,15 +780,11 @@ export function StockFiltersTopBar({
   facets,
   filters,
   onFilterChange,
-  filteredCount,
-  totalCount,
   onOpenMobile,
 }: {
   facets: ReturnType<typeof useStockFacets>;
   filters: FilterState;
   onFilterChange: (newFilters: FilterState) => void;
-  filteredCount: number;
-  totalCount: number;
   onOpenMobile: () => void;
 }) {
   const hasActiveFilters =
