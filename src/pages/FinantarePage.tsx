@@ -6,6 +6,7 @@ import { Building2 } from 'lucide-react';
 import TBISection from '../components/finantare/TBISection';
 import MogoSection from '../components/finantare/MogoSection';
 import RateCalculator from '../components/finantare/RateCalculator';
+import FinantareForm from '../components/finantare/FinantareForm';
 
 export default function FinantarePage() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -169,6 +170,9 @@ export default function FinantarePage() {
 
       {/* CALCULATOR SECTION (LIGHT) */}
       <RateCalculator />
+
+      {/* FINANCING FORM SECTION */}
+      <FinantareForm />
 
     </main>
     </>

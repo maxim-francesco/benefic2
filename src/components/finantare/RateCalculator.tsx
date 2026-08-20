@@ -204,12 +204,12 @@ export default function RateCalculator() {
               </div>
             </div>
 
-            <Link 
-              to="/contact"
-              className="block text-center mt-6 w-full py-3.5 bg-mauve-600 text-white rounded-full font-display font-semibold transition-colors hover:bg-mauve-500 tracking-wide"
+            <a 
+              href="#form-finantare"
+              className="block text-center mt-6 w-full py-3.5 bg-mauve-600 text-white rounded-full font-display font-semibold transition-colors hover:bg-mauve-500 tracking-wide min-h-[44px] flex items-center justify-center"
             >
               Solicită Finanțare
-            </Link>
+            </a>
 
             <div className="text-[0.75rem] text-navy-400 mt-4 leading-relaxed">
               * Calculul este orientativ. Rata finală depinde de analiza dosarului. DAE 7.9%.
